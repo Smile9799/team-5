@@ -6,7 +6,7 @@ Option Explicit On
 
     Private _NumSchools As Integer
     Private _CountryName As String
-    Private _Schools() As Integer 'change it to school array later
+    Private _Schools() As School 'change it to school array later
     Private _CountryAverageLiteracyRate As Double
     Private Shared _Id As Integer
     Private _CountryId As String
@@ -19,11 +19,11 @@ Option Explicit On
         _CountryName = countryName
     End Sub
 
-    Public Property School(index As Integer) As Integer
+    Public Property School(index As Integer) As School
         Get
             Return _Schools(index)
         End Get
-        Set(value As Integer)
+        Set(value As School)
             _Schools(index) = value
         End Set
     End Property
