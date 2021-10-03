@@ -55,7 +55,7 @@ Option Explicit On
     End Property
 
     Public Sub CalculateLiteracyRate()
-        'CountryAverageLiteracyRate = TotalPassRate / numSchools * 100
+        _CountryAverageLiteracyRate = TotalPassRate / numSchools * 100
 
     End Sub
 

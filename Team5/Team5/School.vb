@@ -46,22 +46,20 @@ Option Explicit On
             _FailRate = value
         End Set
     End Property
-    Public Property FemalePassRate As Double
+    Public ReadOnly Property FemalePassRate As Double
         Get
             Return _FemalePassrate
         End Get
-        Set(value As Double)
-            _FemalePassrate = value
-        End Set
     End Property
-    Public Property MalepassRate As Double
+    Public ReadOnly Property MalepassRate As Double
         Get
             Return _MalePassrate
         End Get
-        Set(value As Double)
-            _MalePassrate = value
-        End Set
     End Property
+    Public Function Passrate() As Double
+        TotalPassRate = FemalePassRate + MalepassRate
+        Return TotalPassRate
+    End Function
     Public Function CalcFailRate() As Double
         Return 100 - _TotalPassRate
     End Function
