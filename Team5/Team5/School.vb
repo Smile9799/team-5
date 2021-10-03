@@ -56,9 +56,9 @@ Option Explicit On
             Return _MalePassrate
         End Get
     End Property
-    Public Function Passrate() As Double
-        TotalPassRate = FemalePassRate + MalepassRate
-        Return TotalPassRate
+    Public Function PassRate() As Double
+        _TotalPassRate = _FemalePassrate + _MalePassrate
+        Return _TotalPassRate
     End Function
     Public Function CalcFailRate() As Double
         Return 100 - _TotalPassRate
