@@ -2,8 +2,8 @@
 Option Explicit On
 Option Infer Off
 Public Class Subject
-    Public _SubjectName As String
-    Public _DificultyRating As Integer
+    Private _SubjectName As String
+    Private _DificultyRating As Integer
 
     Public Sub New(sn As String, d As Integer)
         _SubjectName = sn

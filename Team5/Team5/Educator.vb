@@ -2,15 +2,13 @@
 Option Explicit On
 Option Infer Off
 Public Class Educator
-    Public _Remuneration As Double
-    Public _Duration As Integer
-    Public _Staffid As String
-    Public _WorkHourDay As Integer
+    Private _Remuneration As Double
+    Private _Duration As Integer
+    Private _Staffid As String
+    Private _WorkHourDay As Integer
 
-    Public Sub New(r As Double, u As Integer, s As String, w As Integer)
-        _Remuneration = r
+    Public Sub New(u As Integer, w As Integer)
         _Duration = u
-        _Staffid = s
         _WorkHourDay = w
     End Sub
 
@@ -31,6 +29,7 @@ Public Class Educator
 
     Public Function calcRemuneration() As Double
         _Remuneration = _WorkHourDay * _Duration
+        Return _Remuneration
     End Function
 
 
