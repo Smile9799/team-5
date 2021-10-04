@@ -5,9 +5,9 @@ Public Class Subject
     Private _SubjectName As String
     Private _DificultyRating As Integer
 
-    Public Sub New(sn As String, d As Integer)
-        _SubjectName = sn
-        _DificultyRating = d
+    Public Sub New(subName As String, Dif As Integer)
+        _SubjectName = subName
+        _DificultyRating = Dif
     End Sub
 
     Public ReadOnly Property SubjectName As String

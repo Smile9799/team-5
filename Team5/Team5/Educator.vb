@@ -2,14 +2,16 @@
 Option Explicit On
 Option Infer Off
 Public Class Educator
+    Inherits Person
     Private _Remuneration As Double
     Private _Duration As Integer
     Private _Staffid As String
     Private _WorkHourDay As Integer
 
-    Public Sub New(u As Integer, w As Integer)
-        _Duration = u
-        _WorkHourDay = w
+    Public Sub New(name As String, Dur As Integer, work As Integer)
+        MyBase.New(name)
+        _Duration = Dur
+        _WorkHourDay = work
     End Sub
 
     Public ReadOnly Property Remuneration As Double
