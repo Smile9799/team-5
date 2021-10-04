@@ -17,8 +17,8 @@ Public Class Educator
         _Id += 1
         _StaffId = "STFF_" + CStr(_Id)
         _Duration = duration
-            _WorkHourDay = hours
-        End Sub
+        _WorkHourDay = hours
+    End Sub
 
     'properties
     Public ReadOnly Property Remuneration() As Double
@@ -42,14 +42,13 @@ Public Class Educator
         End Set
     End Property
 
-        'calculating remuneration
-        Public Function calcRemuneration() As Double
-            _Remuneration = _WorkHourDay * _Duration
-            _Remuneration = _WorkHourDay * _Duration * 12
-            Return _Remuneration
-        End Function
+    'calculating remuneration
+    Public Function calcRemuneration() As Double
+        _Remuneration = _WorkHourDay * _Duration * 12
+        Return _Remuneration
+    End Function
 
-        Public Overrides Function Display() As String
+    Public Overrides Function Display() As String
         Dim Ans As String = ""
         Ans &= "StaffId :" & _StaffId & Environment.NewLine
         Ans &= MyBase.Display() & Environment.NewLine
