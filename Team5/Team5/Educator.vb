@@ -1,21 +1,7 @@
 ﻿Option Strict On
 Option Explicit On
 Option Infer Off
-<<<<<<< HEAD
 Public Class Educator
-    Inherits Person
-    Private _Remuneration As Double
-    Private _Duration As Integer
-    Private _Staffid As String
-    Private _WorkHourDay As Integer
-
-    Public Sub New(name As String, Dur As Integer, work As Integer)
-        MyBase.New(name)
-        _Duration = Dur
-        _WorkHourDay = work
-=======
-<Serializable()> Public Class Educator
-
     Inherits Person
 
     'declaring variables
@@ -31,9 +17,8 @@ Public Class Educator
         _Id += 1
         _StaffId = "STFF_" + CStr(_Id)
         _Duration = duration
-        _WorkHourDay = hours
->>>>>>> 519c84ab084146de9bd7a0c09d214094f900226e
-    End Sub
+            _WorkHourDay = hours
+        End Sub
 
     'properties
     Public ReadOnly Property Remuneration() As Double
@@ -57,17 +42,14 @@ Public Class Educator
         End Set
     End Property
 
-    'calculating remuneration
-    Public Function calcRemuneration() As Double
-<<<<<<< HEAD
-        _Remuneration = _WorkHourDay * _Duration
-=======
-        _Remuneration = _WorkHourDay * _Duration * 12
->>>>>>> 519c84ab084146de9bd7a0c09d214094f900226e
-        Return _Remuneration
-    End Function
+        'calculating remuneration
+        Public Function calcRemuneration() As Double
+            _Remuneration = _WorkHourDay * _Duration
+            _Remuneration = _WorkHourDay * _Duration * 12
+            Return _Remuneration
+        End Function
 
-    Public Overrides Function Display() As String
+        Public Overrides Function Display() As String
         Dim Ans As String = ""
         Ans &= "StaffId :" & _StaffId & Environment.NewLine
         Ans &= MyBase.Display() & Environment.NewLine
