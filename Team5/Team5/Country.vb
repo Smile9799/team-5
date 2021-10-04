@@ -27,6 +27,14 @@ Option Explicit On
             _Schools(index) = value
         End Set
     End Property
+    Public Property numSchools As Integer
+        Get
+            Return _NumSchools
+        End Get
+        Set(value As Integer)
+            _NumSchools = value
+        End Set
+    End Property
 
     Public ReadOnly Property CountryName() As String
         Get
@@ -47,7 +55,13 @@ Option Explicit On
     End Property
 
     Public Sub CalculateLiteracyRate()
-        'To be implemented
+        Dim totalPassRate As Double = 0.0
+
+        For s As Integer = 1 To _Schools.Length - 1
+            totalPassRate += _Schools(s).PassRate()
+        Next
+
+        _CountryAverageLiteracyRate = (totalPassRate / numSchools) * 100
     End Sub
 
 End Class

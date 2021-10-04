@@ -53,4 +53,8 @@ Public Class frmGov
 
         SaveToFile(Countries)
     End Sub
+
+    Private Sub frmGov_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
 End Class
