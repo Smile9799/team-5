@@ -55,8 +55,13 @@ Option Explicit On
     End Property
 
     Public Sub CalculateLiteracyRate()
-        'CountryAverageLiteracyRate = TotalPassRate / numSchools * 100
+        Dim totalPassRate As Double = 0.0
 
+        For s As Integer = 1 To _Schools.Length - 1
+            totalPassRate += _Schools(s).PassRate()
+        Next
+
+        _CountryAverageLiteracyRate = (totalPassRate / numSchools) * 100
     End Sub
 
 End Class

@@ -43,12 +43,12 @@ Public Class Person
         End Get
     End Property
 
-    Public Property Subject() As subject
+    Public Property Subject(index As Integer) As Subject
         Get
-            Return _Subject()
+            Return _Subject(index)
         End Get
-        Set(value As subject)
-            _Subject() = value
+        Set(value As Subject)
+            _Subject(index) = value
         End Set
     End Property
 
