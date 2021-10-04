@@ -28,6 +28,7 @@ Public Class frmGov
         End If
 
         FS.Close()
+        MessageBox.Show("Infomation has been saved :)")
     End Sub
     Private Sub btnCaptureData_Click(sender As Object, e As EventArgs) Handles btnCaptureData.Click
         Dim numCountries As Integer = CInt(InputBox("Enter number of countries"))
@@ -52,9 +53,5 @@ Public Class frmGov
         Next c
 
         SaveToFile(Countries)
-    End Sub
-
-    Private Sub frmGov_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
     End Sub
 End Class

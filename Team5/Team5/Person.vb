@@ -1,16 +1,20 @@
 ﻿Option Explicit On
 Option Strict On
 Option Infer Off
-Public Class Person
+<Serializable()> Public Class Person
 
     Private _Name As String
     Private _Gender As String
     Private _Age As Integer
     Private _Country As String
-    Private _Subject() As Subject
+    Private _Subjects() As Subject
 
-    Public Sub New(Name As String)
+    Public Sub New(Name As String, gender As String, age As Integer, country As String, numSubjects As Integer)
         _Name = Name
+        _Gender = gender
+        _Age = age
+        _Country = country
+        ReDim _Subjects(numSubjects)
     End Sub
 
     Public Property Name As String
@@ -45,19 +49,24 @@ Public Class Person
 
     Public Property Subject(index As Integer) As Subject
         Get
-            Return _Subject(index)
+            Return _Subjects(index)
         End Get
         Set(value As Subject)
-            _Subject(index) = value
+            _Subjects(index) = value
         End Set
     End Property
 
-    Public Overridable Function Dispaly() As String
+    Private ReadOnly Property Subjects() As Subject()
+        Get
+            Return _Subjects
+        End Get
+    End Property
+    Public Overridable Function Display() As String
         Dim Ans As String
-        Ans = "Name :" & _Name & Environment.newline
-        Ans &= "Gender :" & _Gender & Environment.newline
-        Ans &= "Age :" & _Age & Environmenet.newline
-        Ans &= "Country " & _Country & Environmenet.newline
+        Ans = "Name :" & _Name & Environment.NewLine
+        Ans &= "Gender :" & _Gender & Environment.NewLine
+        Ans &= "Age :" & _Age & Environment.NewLine
+        Ans &= "Country " & _Country & Environment.NewLine
         Return Ans
     End Function
 End Class

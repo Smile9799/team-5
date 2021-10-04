@@ -1,16 +1,27 @@
 ﻿Option Explicit On
 Option Strict On
 Option Infer Off
-Public Class Student
+<Serializable()> Public Class Student
+
     Inherits Person
+
+    Private Shared _Id As Integer
     Private _IsAttending As Boolean
     Private _HasPassed As Boolean
     Private _StudentID As String
     Private _TransportNeeded As Boolean
     Private _DistanceFromSchool As Integer
 
-    Public Sub New(Name As String)
-        MyBase.New(Name)
+    Public Sub New(studentName As String, age As Integer, gender As String, country As String, numSubjects As Integer, isAttending As Boolean, passed As Boolean, transportNeeded As Boolean, Optional distanceFromSchool As Integer = 0)
+
+        MyBase.New(studentName, gender, age, country, numSubjects)
+
+        _Id += 1
+        _StudentID = "ST_" & CStr(_Id)
+        _IsAttending = isAttending
+        _HasPassed = passed
+        _TransportNeeded = transportNeeded
+        _DistanceFromSchool = distanceFromSchool
     End Sub
 
     Public ReadOnly Property IsAttending As Boolean
@@ -25,35 +36,50 @@ Public Class Student
         End Get
     End Property
 
-    Public Property StudentID As String
+    Public ReadOnly Property StudentID As String
         Get
             Return _StudentID
         End Get
-        Set(value As String)
-            _StudentID = value
-        End Set
     End Property
 
-    Public Property TransportNeeded As Boolean
+    Public ReadOnly Property TransportNeeded As Boolean
         Get
             Return _TransportNeeded
         End Get
-        Set(value As Boolean)
-            _TransportNeeded = value
-        End Set
     End Property
 
-    Public Property DistanceFromSchool As Integer
+    Public ReadOnly Property DistanceFromSchool As Integer
         Get
             Return _DistanceFromSchool
         End Get
-        Set(value As Integer)
-            _DistanceFromSchool = value
-        End Set
     End Property
 
     Public Function calcTripFare() As Double
-        Dim Price As Double
-        Return Price * DistanceFromSchool
+        Return 5.2 * _DistanceFromSchool
+    End Function
+
+    Private Function isAttendingStr() As String
+        If _IsAttending Then
+            Return "Yes"
+        Else
+            Return "No"
+        End If
+    End Function
+
+    Private Function hasPassedStr() As String
+        If _HasPassed Then
+            Return "Yes"
+        Else
+            Return "No"
+        End If
+    End Function
+    Public Overrides Function Display() As String
+        Dim tempStr As String = ""
+        tempStr &= "Student Id: " & _StudentID
+        tempStr &= MyBase.Display() & Environment.NewLine
+        tempStr &= "Is Attending: " & isAttendingStr() & Environment.NewLine
+        tempStr &= "Has Passed: " & hasPassedStr() & Environment.NewLine
+        tempStr &= "Transport Fare: " & CStr(calcTripFare()) & Environment.NewLine
+        Return tempStr
     End Function
 End Class
