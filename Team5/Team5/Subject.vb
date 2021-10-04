@@ -2,20 +2,15 @@
 Option Explicit On
 Option Infer Off
 Public Class Subject
-    Public _SubjectName As String
+    Inherits Person
     Public _DificultyRating As Integer
-
-    Public Sub New(sn As String, d As Integer)
-        _SubjectName = sn
+    'constructor
+    Public Sub New(Name As String, d As Integer)
+        MyBase.New(Name)
         _DificultyRating = d
     End Sub
 
-    Public ReadOnly Property SubjectName As String
-        Get
-            Return _SubjectName
-        End Get
-    End Property
-
+    'property
     Public Property DificultyRating As Integer
         Get
             Return _DificultyRating
