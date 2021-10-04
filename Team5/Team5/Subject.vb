@@ -1,6 +1,7 @@
 ﻿Option Strict On
 Option Explicit On
 Option Infer Off
+<<<<<<< HEAD
 Public Class Subject
     Private _SubjectName As String
     Private _DificultyRating As Integer
@@ -9,19 +10,32 @@ Public Class Subject
         _SubjectName = subName
         _DificultyRating = Dif
     End Sub
+=======
+<Serializable()> Public Class Subject
 
-    Public ReadOnly Property SubjectName As String
-        Get
-            Return _SubjectName
-        End Get
-    End Property
+    Private _SubjectName As String
+    Private _DificultyRating As Integer
+>>>>>>> 519c84ab084146de9bd7a0c09d214094f900226e
 
-    Public Property DificultyRating As Integer
+    'constructor
+    Public Sub New(Name As String, rating As Integer)
+        _SubjectName = Name
+        _DificultyRating = rating
+    End Sub
+
+    'property
+    Public Property DificultyRating() As Integer
         Get
             Return _DificultyRating
         End Get
         Set(value As Integer)
             _DificultyRating = value
         End Set
+    End Property
+
+    Public ReadOnly Property SubjectName() As String
+        Get
+            Return _SubjectName
+        End Get
     End Property
 End Class

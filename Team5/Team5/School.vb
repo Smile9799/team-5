@@ -83,4 +83,17 @@ Option Explicit On
         End If
         Return FemaleDropOut
     End Function
+
+    Public Function Display() As String
+        Dim tempStr As String = ""
+        tempStr &= "School Name: " & _SchoolName & Environment.NewLine
+        tempStr &= "School Id: " + _SchoolId & Environment.NewLine
+        tempStr &= "Total Pass Rate: " & CStr(_TotalPassRate) & Environment.NewLine
+        tempStr &= "Total Fail Rate: " & CStr(_FailRate) & Environment.NewLine
+        tempStr &= "Male Pass Rate: " & CStr(_MalePassrate) & Environment.NewLine
+        tempStr &= "Female Pass Rate: " & CStr(_FemalePassrate) & Environment.NewLine
+        tempStr &= "School personale: " & Environment.NewLine
+
+        Return tempStr
+    End Function
 End Class
