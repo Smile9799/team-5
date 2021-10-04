@@ -51,4 +51,13 @@ Public Class Person
             _Subject() = value
         End Set
     End Property
+
+    Public Overridable Function Dispaly() As String
+        Dim Ans As String
+        Ans = "Name :" & _Name & Environment.newline
+        Ans &= "Gender :" & _Gender & Environment.newline
+        Ans &= "Age :" & _Age & Environmenet.newline
+        Ans &= "Country " & _Country & Environmenet.newline
+        Return Ans
+    End Function
 End Class
