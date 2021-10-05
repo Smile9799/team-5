@@ -37,11 +37,12 @@ Public Class frmGov
         For c As Integer = 1 To Countries.Length - 1
             Dim countryName As String = InputBox("Please enter country name")
             Dim numSchools As Integer = CInt(InputBox("Please enter number of schools"))
-
-            Countries(c) = New Country(numSchools, countryName)
+            Dim schoolName As String
+            Dim numPeople As Integer
+            Countries(c) = New Country(numSchools, countryName, numPeople, schoolName)
 
             For s As Integer = 1 To numSchools
-                Dim schoolName As String = InputBox("Please enter school name")
+                schoolName = InputBox("Please enter school name")
                 Dim schoolPersonale As Integer = CInt(InputBox("Please enter numbe of people in school this includes students and staff"))
 
                 Countries(c).School(s) = New School(schoolPersonale, schoolName)

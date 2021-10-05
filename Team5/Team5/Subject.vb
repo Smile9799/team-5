@@ -5,8 +5,8 @@ Public Class Subject
     Inherits Person
     Public _DificultyRating As Integer
     'constructor
-    Public Sub New(Name As String, d As Integer)
-        MyBase.New(Name)
+    Public Sub New(Name As String, d As Integer, gender As String, age As Integer, country As String, numSubjects As Integer)
+        MyBase.New(Name, gender, age, country, numSubjects)
         _DificultyRating = d
     End Sub
 

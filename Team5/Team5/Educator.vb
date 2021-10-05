@@ -10,8 +10,8 @@ Public Class Educator
     Public _WorkHourDay As Integer
 
     'constructor
-    Public Sub New(Name As String, r As Double, u As Integer, s As String, w As Integer)
-        MyBase.New(Name)
+    Public Sub New(Name As String, r As Double, u As Integer, s As String, w As Integer, gender As String, age As Integer, country As String, numSubjects As Integer)
+        MyBase.New(Name, gender, age, country, numSubjects)
         _Remuneration = r
         _Duration = u
         _Staffid = s
@@ -37,6 +37,7 @@ Public Class Educator
     'calculating remuneration
     Public Function calcRemuneration() As Double
         _Remuneration = _WorkHourDay * _Duration
+        Return _Remuneration
     End Function
 
 

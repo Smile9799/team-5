@@ -83,4 +83,12 @@ Option Explicit On
         End If
         Return FemaleDropOut
     End Function
+    Public Overridable Function Display() As String
+        Dim result As String
+        result = "Pass rate: " & PassRate() & Environment.NewLine
+        result &= "Fail rate: " & CalcFailRate() & Environment.NewLine
+        result &= "Male drop out rate: " & CalcMaleDropOutRate() & Environment.NewLine
+        result &= "female drop out rate: " & FemaleDropOutRate() & Environment.NewLine
+        Return result
+    End Function
 End Class
