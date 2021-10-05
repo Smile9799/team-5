@@ -7,9 +7,14 @@ Option Infer Off
     Private _DificultyRating As Integer
 
     'constructor
+
+    Public Sub New(d As Integer)
+        _DificultyRating = d
+    End Sub
     Public Sub New(Name As String, rating As Integer)
         _SubjectName = Name
         _DificultyRating = rating
+
     End Sub
 
     'property

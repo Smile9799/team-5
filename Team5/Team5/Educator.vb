@@ -12,12 +12,21 @@ Public Class Educator
     Private _WorkHourDay As Integer
 
     'constructor
+<<<<<<< HEAD
+    Public Sub New(Name As String, r As Double, u As Integer, s As String, w As Integer, gender As String, age As Integer, country As String, numSubjects As Integer)
+        MyBase.New(Name, gender, age, country, numSubjects)
+        _Remuneration = r
+        _Duration = u
+        _Staffid = s
+        _WorkHourDay = w
+=======
     Public Sub New(Name As String, age As Integer, gender As String, country As String, duration As Integer, hours As Integer, Optional numSubjects As Integer = 1)
         MyBase.New(Name, gender, age, country, numSubjects)
         _Id += 1
         _StaffId = "STFF_" + CStr(_Id)
         _Duration = duration
         _WorkHourDay = hours
+>>>>>>> e45c5194b2114038600a240e7a3eb4886da3e1e3
     End Sub
 
     'properties
@@ -44,7 +53,11 @@ Public Class Educator
 
     'calculating remuneration
     Public Function calcRemuneration() As Double
+<<<<<<< HEAD
+        _Remuneration = _WorkHourDay * _Duration
+=======
         _Remuneration = _WorkHourDay * _Duration * 12
+>>>>>>> e45c5194b2114038600a240e7a3eb4886da3e1e3
         Return _Remuneration
     End Function
 

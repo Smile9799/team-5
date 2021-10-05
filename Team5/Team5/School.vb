@@ -71,29 +71,20 @@ Option Explicit On
         Return _TotalPassRate
     End Function
     Public Function CalcFailRate() As Double
-        Return 100 - _TotalPassRate
+        _FailRate = 100 - _TotalPassRate
+        Return _FailRate
     End Function
-    Public Function CalcMaleDropOutRate() As String
-        Dim MaleDropOut As String
+    Public Function CalcMaleDropOutRate() As Double
+        Dim MaledropOutrate As Double
+        MaledropOutrate = _FailRate / _MalePassrate
+        Return MaledropOutrate
 
-        If MalepassRate < 50 Then
-            MaleDropOut = "low"
-        Else
-            MaleDropOut = "high"
-        End If
-        Return MaleDropOut
     End Function
-    Public Function FemaleDropOutRate() As String
-        Dim FemaleDropOut As String
-
-        If FemalePassRate < 50 Then
-            FemaleDropOut = "low"
-        Else
-            FemaleDropOut = "high"
-        End If
-        Return FemaleDropOut
+    Public Function CalcFemaleDropOutRate() As Double
+        Dim femaledropoutrate As Double
+        femaledropoutrate = _FailRate / _FemalePassrate
+        Return femaledropoutrate
     End Function
-
     Public Function Display() As String
         Dim tempStr As String = ""
         tempStr &= "School Name: " & _SchoolName & Environment.NewLine

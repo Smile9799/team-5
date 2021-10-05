@@ -11,7 +11,8 @@ Option Explicit On
     Private Shared _Id As Integer
     Private _CountryId As String
 
-    Public Sub New(numSchools As Integer, countryName As String)
+    Public Sub New(numSchools As Integer, countryName As String, numPeople As Integer, schoolName As String)
+
         ReDim _Schools(numSchools)
         _Id += 1
         _CountryId = "CO_" + CStr(_Id)
@@ -54,7 +55,7 @@ Option Explicit On
         End Get
     End Property
 
-    Public Sub CalculateLiteracyRate()
+    Public Function CalculateLiteracyRate() As Double
         Dim totalPassRate As Double = 0.0
 
         For s As Integer = 1 To _Schools.Length - 1
@@ -62,6 +63,11 @@ Option Explicit On
         Next
 
         _CountryAverageLiteracyRate = (totalPassRate / numSchools) * 100
-    End Sub
-
+        Return _CountryAverageLiteracyRate
+    End Function
+    Public Function Display() As String
+        Dim result As String
+        result = "Literacy rate: " & CStr(CalculateLiteracyRate()) & Environment.NewLine
+        Return result
+    End Function
 End Class
