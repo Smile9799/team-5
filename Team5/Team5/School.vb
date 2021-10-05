@@ -13,15 +13,25 @@ Option Explicit On
     Private _FemalePassrate As Double
     Private _MalePassrate As Double
     Private _NumberOfStaffAndStudents As Integer
-    'Private _People() as Person waiting for others to finish up :)
+    Private _People() As Person
 
     Public Sub New(numPeople As Integer, schoolName As String)
-        'ReDim _People(numPeople) 
+        ReDim _People(numPeople)
         _Id += 1
         _NumberOfStaffAndStudents = numPeople
         _SchoolName = schoolName
         _SchoolId = "SC_" + CStr(_Id)
     End Sub
+
+    Public Property Person(index As Integer) As Person
+        Get
+            Return _People(index)
+        End Get
+        Set(value As Person)
+            _People(index) = value
+        End Set
+    End Property
+
     Public Property NumberOfStaffAndStudents As Integer
         Get
             Return _NumberOfStaffAndStudents

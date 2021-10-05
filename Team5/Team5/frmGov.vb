@@ -48,10 +48,63 @@ Public Class frmGov
 
                 For p As Integer = 1 To schoolPersonale
 
+                    Dim typePerson As Integer = CInt(InputBox("Select the person you wish to save" & Environment.NewLine & "1. Student" & Environment.NewLine & "2. Educator"))
+
+                    Dim personName As String = InputBox("Please enter person name")
+                    Dim personAge As Integer = CInt(InputBox("Please enter person age"))
+                    Dim personGender As String = InputBox("Please enter person gender")
+                    Dim numSubject As Integer = CInt(InputBox("Enter number of subjects"))
+                    ' check if the user is the educator or student
+
+                    If typePerson = 1 Then
+
+                        Dim studentAttending As Integer = CInt(InputBox("Is the student still attending? " & Environment.NewLine & "1. Yes" & Environment.NewLine & "2.No"))
+                        Dim isAttending As Boolean = False
+                        If studentAttending = 1 Then
+                            isAttending = True
+                        Else
+                            isAttending = False
+                        End If
+
+                        Dim studentPassed As Integer = CInt(InputBox("Has the student passed? " & Environment.NewLine & "1. Yes" & Environment.NewLine & "2.No"))
+                        Dim hasPassed As Boolean = False
+                        If studentPassed = 1 Then
+                            hasPassed = True
+                        Else
+                            hasPassed = False
+                        End If
+
+                        Dim studentTransport As Integer = CInt(InputBox("Is the student in need of transport? " & Environment.NewLine & "1. Yes" & Environment.NewLine & "2.No"))
+                        Dim distanceFromSchool As Integer
+                        Dim needTransport As Boolean = False
+                        If studentTransport = 1 Then
+                            needTransport = True
+                            distanceFromSchool = CInt(InputBox("Please enter the distance from school"))
+                        Else
+                            needTransport = False
+                            distanceFromSchool = 0
+                        End If
+
+                        Countries(c).School(s).Person(p) = New Student(personName, personAge, personGender, countryName, numSubject, isAttending, hasPassed, needTransport, distanceFromSchool)
+
+                    ElseIf typePerson = 2 Then
+                        Dim personCountry As String = InputBox("Please enter person country")
+                        Dim duration As Integer = CInt(InputBox("How many months will this person be working"))
+                        Dim workPerDay As Integer = CInt(InputBox("How many hours per day will this person work"))
+                        Countries(c).School(s).Person(p) = New Educator(personName, personAge, personGender, personCountry, duration, workPerDay, numSubject)
+                    End If
+
+                    For subj As Integer = 1 To numSubject
+                        Dim subjectName As String = InputBox("Please enter the subject name")
+                        Dim subjectRating As Integer = CInt(InputBox("Please enter the subject difficulty rating"))
+                        Countries(c).School(s).Person(p).Subject(subj) = New Subject(subjectName, subjectRating)
+                    Next subj
+
                 Next p
             Next s
         Next c
 
         SaveToFile(Countries)
     End Sub
+
 End Class
