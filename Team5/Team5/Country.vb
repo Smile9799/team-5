@@ -1,4 +1,15 @@
-﻿Option Strict On
+﻿' *****************************************************************
+' Git Repo: https://github.com/Smile9799/team-5
+' Team Number: 5
+' Team Member 1 Details: Muthanuni, ME (218002694)
+' Team Member 2 Details: Surname, Initials (Student #)
+' Team Member 3 Details: Surname, Initials (Student #)
+' Team Member 4 Details: e.g. Smith, J (202000001)
+' Practical: Team Project
+' Class name: Country
+' *****************************************************************
+
+Option Strict On
 Option Infer Off
 Option Explicit On
 
@@ -62,6 +73,7 @@ Option Explicit On
         End Get
     End Property
 
+    'Calculates the literacy rate of the country
     Public Function CalculateLiteracyRate() As Double
         Dim totalPassRate As Double = 0.0
 
@@ -69,17 +81,30 @@ Option Explicit On
             totalPassRate += _Schools(s).PassRate()
         Next
 
-        _CountryAverageLiteracyRate = (totalPassRate / numSchools) * 100
+        _CountryAverageLiteracyRate = ((totalPassRate) / numSchools)
         Return _CountryAverageLiteracyRate
     End Function
     Public Function Display() As String
         Dim result As String = ""
-        result &= "Literacy rate: " & CStr(CalculateLiteracyRate()) & Environment.NewLine
-        result &= "Schools information..." & Environment.NewLine
+        result &= "Country Id: " & _CountryId & Environment.NewLine
+        result &= "Country Name: " & _CountryName & Environment.NewLine
+        result &= "Literacy rate: " & CStr(CalculateLiteracyRate()) & CStr("%") & Environment.NewLine
+        result &= Environment.NewLine
 
         For s As Integer = 1 To _Schools.Length - 1
+            result &= "===========================Schools information..." & Environment.NewLine
             result &= _Schools(s).Display()
         Next s
+
+        Return result
+    End Function
+
+    Public Function DisplayCountryInfo() As String
+        Dim result As String = ""
+        result &= "Country Id: " & _CountryId & Environment.NewLine
+        result &= "Country Name: " & _CountryName & Environment.NewLine
+        result &= "Literacy rate: " & CStr(CalculateLiteracyRate()) & CStr("%") & Environment.NewLine
+        result &= Environment.NewLine
 
         Return result
     End Function

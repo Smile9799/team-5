@@ -1,4 +1,15 @@
-﻿Option Strict On
+﻿' *****************************************************************
+' Git Repo: https://github.com/Smile9799/team-5
+' Team Number: 5
+' Team Member 1 Details: Muthanuni, ME (218002694)
+' Team Member 2 Details: Surname, Initials (Student #)
+' Team Member 3 Details: Surname, Initials (Student #)
+' Team Member 4 Details: e.g. Smith, J (202000001)
+' Practical: Team Project
+' Class name: Educator
+' *****************************************************************
+
+Option Strict On
 Option Explicit On
 Option Infer Off
 <Serializable()> Public Class Educator
@@ -43,7 +54,7 @@ Option Infer Off
         End Set
     End Property
 
-    'calculating remuneration
+    'calculating remuneration $12 per hour
     Public Function calcRemuneration() As Double
 
         _Remuneration = _WorkHourDay * _Duration * 12
@@ -54,9 +65,9 @@ Option Infer Off
         Dim Ans As String = ""
         Ans &= "StaffId :" & _StaffId & Environment.NewLine
         Ans &= MyBase.Display() & Environment.NewLine
-        Ans &= "Duration :" & CStr(_Duration) & Environment.NewLine
+        Ans &= "Duration :" & CStr(_Duration) & " months" & Environment.NewLine
         Ans &= "Work Hours/ Day :" & CStr(_WorkHourDay) & Environment.NewLine
-        Ans &= "Salary " & CStr(_Remuneration) & Environment.NewLine
+        Ans &= "Salary " & CStr("$") & CStr(calcRemuneration()) & CStr(" p/m") & Environment.NewLine
         Return Ans
     End Function
 End Class

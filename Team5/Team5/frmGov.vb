@@ -1,4 +1,15 @@
-﻿Option Strict On
+﻿' *****************************************************************
+' Git Repo: https://github.com/Smile9799/team-5
+' Team Number: 5
+' Team Member 1 Details: Muthanuni, ME (218002694)
+' Team Member 2 Details: Surname, Initials (Student #)
+' Team Member 3 Details: Surname, Initials (Student #)
+' Team Member 4 Details: e.g. Smith, J (202000001)
+' Practical: Team Project
+' Class name: frmGov
+' *****************************************************************
+
+Option Strict On
 Option Explicit On
 Option Infer Off
 
@@ -15,6 +26,7 @@ Public Class frmGov
 
     Private Countries() As Country
 
+    'Save info to file sequentially
     Private Sub SaveToFile(Countries() As Country)
         FS = New FileStream(FILE_NAME, FileMode.Create, FileAccess.Write)
         BF = New BinaryFormatter()
@@ -30,14 +42,39 @@ Public Class frmGov
         FS.Close()
         MessageBox.Show("Infomation has been saved :)")
     End Sub
+
+    'read from file and returns an array of countries
+    Private Function ReadFromFile() As Country()
+        If File.Exists(FILE_NAME) Then
+            FS = New FileStream(FILE_NAME, FileMode.Open, FileAccess.Read)
+            BF = New BinaryFormatter()
+            Dim counter As Integer = 1
+            While FS.Position < FS.Length
+                counter += 1
+                ReDim Preserve Countries(counter)
+                Countries(counter) = DirectCast(BF.Deserialize(FS), Country)
+            End While
+        End If
+        FS.Close()
+        Return Countries
+    End Function
+
+    'Display country and other information about country
     Private Sub DisplayInfo(Countries() As Country)
-        For c As Integer = 1 To Countries.Length - 1
-            If Not Countries(c) Is Nothing Then
-                txtDisplay.Text &= Countries(c).Display()
-                txtDisplay.Text &= Environment.NewLine & Environment.NewLine
-            End If
-        Next c
+        If Countries Is Nothing Then
+            MessageBox.Show("Nothing to read")
+        Else
+            For c As Integer = 1 To Countries.Length - 1
+                If Not Countries(c) Is Nothing Then
+                    txtDisplay.Text &= Countries(c).Display()
+                    txtDisplay.Text &= "============================================"
+                    txtDisplay.Text &= Environment.NewLine & Environment.NewLine
+                End If
+            Next c
+        End If
     End Sub
+
+    'captures country data
     Private Sub btnCaptureData_Click(sender As Object, e As EventArgs) Handles btnCaptureData.Click
         Dim numCountries As Integer = CInt(InputBox("Enter number of countries"))
         ReDim Countries(numCountries)
@@ -116,27 +153,91 @@ Public Class frmGov
         SaveToFile(Countries)
     End Sub
 
+    'print countries data
     Private Sub btnDisplayInfo_Click(sender As Object, e As EventArgs) Handles btnDisplayInfo.Click
-        If File.Exists(FILE_NAME) Then
-            FS = New FileStream(FILE_NAME, FileMode.Open, FileAccess.Read)
-            BF = New BinaryFormatter()
-            Dim counter As Integer = 1
-            While FS.Position < FS.Length
-                counter += 1
-                ReDim Preserve Countries(counter)
-                Countries(counter) = DirectCast(BF.Deserialize(FS), Country)
-            End While
-        End If
-        FS.Close()
-        DisplayInfo(Countries)
+
+        txtDisplay.Clear()
+        Dim countries As Country() = ReadFromFile()
+        DisplayInfo(countries)
         MessageBox.Show("Done reading...")
+        txtDisplay.Visible = True
     End Sub
 
+    'prints only countries stats
     Private Sub btnCountryStats_Click(sender As Object, e As EventArgs) Handles btnCountryStats.Click
+        Dim countries As Country() = ReadFromFile()
+        If countries Is Nothing Then
+            MessageBox.Show("Storage is empty try saving some information first")
+        Else
+            txtDisplay.Clear()
+            txtDisplay.Visible = True
+            For c As Integer = 1 To countries.Length - 1
+                If Not countries(c) Is Nothing Then
+                    txtDisplay.Text &= "Country Id: " & countries(c).CountryId & Environment.NewLine
+                    txtDisplay.Text &= "Country Name: " & countries(c).CountryName & Environment.NewLine
+                    txtDisplay.Text &= "Literacy rate: " & countries(c).CalculateLiteracyRate() & CStr("%") & Environment.NewLine
+                    txtDisplay.Text &= Environment.NewLine
+                End If
+            Next
+        End If
 
     End Sub
 
+    'calculates the worst and best country
     Private Sub btnWorstAndBestCountries_Click(sender As Object, e As EventArgs) Handles btnWorstAndBestCountries.Click
+        Dim SavedCountries() As Country
 
+        If countries Is Nothing Then
+        Else
+            Dim numCountries As Integer = 0
+            Dim countries() As Country = ReadFromFile()
+            For c As Integer = 1 To countries.Length - 1
+                Dim country As Country = TryCast(countries(c), Country)
+                If Not country Is Nothing Then
+                    numCountries += 1
+                    ReDim Preserve SavedCountries(numCountries)
+                    SavedCountries(numCountries) = country
+                End If
+            Next
+
+            txtDisplay.Clear()
+            txtDisplay.Visible = True
+            txtDisplay.Text &= "Best Country : " & Environment.NewLine
+            txtDisplay.Text &= BestCountry(SavedCountries).DisplayCountryInfo()
+            txtDisplay.Text &= "Worst Country : " & Environment.NewLine
+            txtDisplay.Text &= WorstCountry(SavedCountries).DisplayCountryInfo()
+        End If
     End Sub
+
+    Private Sub frmGov_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        txtDisplay.Visible = False
+    End Sub
+
+    Private Function WorstCountry(savedCountries As Country()) As Country
+
+        Dim worstLiteracyRate As Double = savedCountries(1).CalculateLiteracyRate()
+        Dim worstIndex As Integer = 1
+
+        For c As Integer = 1 To savedCountries.Length - 1
+            If savedCountries(c).CalculateLiteracyRate() < worstLiteracyRate Then
+                worstLiteracyRate = savedCountries(c).CalculateLiteracyRate()
+                worstIndex = c
+            End If
+        Next
+        Return savedCountries(worstIndex)
+    End Function
+
+    Private Function BestCountry(savedCountries As Country()) As Country
+        Dim bestLiteracyRate As Double = savedCountries(1).CalculateLiteracyRate()
+        Dim bestIndex As Integer = 1
+
+        For c As Integer = 1 To savedCountries.Length - 1
+            If savedCountries(c).CalculateLiteracyRate() < bestLiteracyRate Then
+                bestLiteracyRate = savedCountries(c).CalculateLiteracyRate()
+                bestIndex = c
+            End If
+        Next
+        Return savedCountries(bestIndex)
+    End Function
+
 End Class

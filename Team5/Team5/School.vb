@@ -1,4 +1,15 @@
-﻿Option Strict On
+﻿' *****************************************************************
+' Git Repo: https://github.com/Smile9799/team-5
+' Team Number: 5
+' Team Member 1 Details: Muthanuni, ME (218002694)
+' Team Member 2 Details: Surname, Initials (Student #)
+' Team Member 3 Details: Surname, Initials (Student #)
+' Team Member 4 Details: e.g. Smith, J (202000001)
+' Practical: Team Project
+' Class name: School
+' *****************************************************************
+
+Option Strict On
 Option Infer Off
 Option Explicit On
 
@@ -66,6 +77,7 @@ Option Explicit On
         End Get
     End Property
 
+    'calculate male pass rate
     Public Function CalcMalePassRate() As Double
         Dim counterPass As Integer = 0
         Dim counterStudents As Integer = 0
@@ -82,6 +94,7 @@ Option Explicit On
         Return _MalePassrate
     End Function
 
+    'calculate female pass rate
     Public Function CalcFeMalePassRate() As Double
         Dim counterPass As Integer = 0
         Dim counterStudents As Integer = 0
@@ -98,14 +111,30 @@ Option Explicit On
         Return _FemalePassrate
     End Function
 
+    'calculate total pass rate
     Public Function PassRate() As Double
-        _TotalPassRate = CalcFeMalePassRate() + CalcMalePassRate()
+        Dim counterPass As Integer = 0
+        Dim counterStudents As Integer = 0
+        For s As Integer = 1 To _People.Length - 1
+            Dim student As Student = TryCast(_People(s), Student)
+            If Not student Is Nothing Then
+                counterStudents += 1
+                If student.HasPassed Then
+                    counterPass += 1
+                End If
+            End If
+        Next
+        _TotalPassRate = (counterPass / counterStudents) * 100
         Return _TotalPassRate
     End Function
+
+    'calculate total fail rate
     Public Function CalcFailRate() As Double
         _FailRate = 100 - _TotalPassRate
         Return _FailRate
     End Function
+
+    'calculate male dropout rate
     Public Function CalcMaleDropOutRate() As Double
         Dim counterDropout As Integer = 0
         Dim counterStudents As Integer = 0
@@ -120,6 +149,8 @@ Option Explicit On
         Next
         Return (counterDropout / counterStudents) * 100
     End Function
+
+    'calculate female dropout rate
     Public Function CalcFemaleDropOutRate() As Double
         Dim counterDropout As Integer = 0
         Dim counterStudents As Integer = 0
@@ -134,28 +165,34 @@ Option Explicit On
         Next
         Return (counterDropout / counterStudents) * 100
     End Function
+
+
     Public Function Display() As String
         Dim tempStr As String = ""
         tempStr &= "School Name: " & _SchoolName & Environment.NewLine
         tempStr &= "School Id: " + _SchoolId & Environment.NewLine
-        tempStr &= "Total Pass Rate: " & CStr(_TotalPassRate) & Environment.NewLine
-        tempStr &= "Total Fail Rate: " & CStr(_FailRate) & Environment.NewLine
-        tempStr &= "Male Pass Rate: " & CStr(_MalePassrate) & Environment.NewLine
-        tempStr &= "Female Pass Rate: " & CStr(_FemalePassrate) & Environment.NewLine
-        tempStr &= "Female DropOut Rate: " & CStr(CalcFemaleDropOutRate())
-        tempStr &= "Male DropOut Rate: " & CStr(CalcMaleDropOutRate())
-        tempStr &= "School personale: " & Environment.NewLine
+        tempStr &= "Total Pass Rate: " & CStr(_TotalPassRate) & CStr("%") & Environment.NewLine
+        tempStr &= "Total Fail Rate: " & CStr(CalcFailRate()) & CStr("%") & Environment.NewLine
+        tempStr &= "Male Pass Rate: " & CStr(CalcMalePassRate()) & CStr("%") & Environment.NewLine
+        tempStr &= "Female Pass Rate: " & CStr(CalcFeMalePassRate()) & CStr("%") & Environment.NewLine
+        tempStr &= "Female DropOut Rate: " & CStr(CalcFemaleDropOutRate()) & CStr("%") & Environment.NewLine
+        tempStr &= "Male DropOut Rate: " & CStr(CalcMaleDropOutRate()) & CStr("%") & Environment.NewLine
+        tempStr &= "==================================School personale: " & Environment.NewLine
 
         For p As Integer = 1 To _People.Length - 1
             Dim student As Student = TryCast(_People(p), Student)
             Dim educator As Educator = TryCast(_People(p), Educator)
 
             If Not student Is Nothing Then
+                tempStr &= "===================================" & Environment.NewLine
                 tempStr &= student.Display()
+                tempStr &= "===================================" & Environment.NewLine
             End If
 
             If Not educator Is Nothing Then
+                tempStr &= "===================================" & Environment.NewLine
                 tempStr &= educator.Display()
+                tempStr &= "===================================" & Environment.NewLine
             End If
 
         Next p
