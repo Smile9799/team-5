@@ -88,7 +88,7 @@ Public Class frmGov
 
             For s As Integer = 1 To numSchools
                 schoolName = InputBox("Please enter school name")
-                Dim schoolPersonale As Integer = CInt(InputBox("Please enter numbe of people in school this includes students and staff"))
+                Dim schoolPersonale As Integer = CInt(InputBox("Please enter number of people in school this includes students and staff"))
 
                 Countries(c).School(s) = New School(schoolPersonale, schoolName)
 

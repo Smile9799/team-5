@@ -3,7 +3,7 @@
 ' Team Number: 5
 ' Team Member 1 Details: Muthanuni, ME (218002694)
 ' Team Member 2 Details: Qondelani, T (220149140)
-' Team Member 3 Details: Surname, Initials (Student #)
+' Team Member 3 Details: Mkhungeki, PAM (221014733)
 ' Team Member 4 Details: e.g. Smith, J (202000001)
 ' Practical: Team Project
 ' Class name: Subject
