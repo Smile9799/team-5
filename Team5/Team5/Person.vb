@@ -62,11 +62,18 @@ Option Infer Off
         End Get
     End Property
     Public Overridable Function Display() As String
-        Dim Ans As String
+        Dim Ans As String = ""
         Ans = "Name :" & _Name & Environment.NewLine
         Ans &= "Gender :" & _Gender & Environment.NewLine
         Ans &= "Age :" & _Age & Environment.NewLine
         Ans &= "Country " & _Country & Environment.NewLine
+        Ans &= "Subject Info: " & Environment.NewLine
+
+        For s As Integer = 1 To _Subjects.Length - 1
+            Ans &= "Subject Name: " & _Subjects(s).SubjectName & Environment.NewLine
+            Ans &= "Subject Difficulty rating: " & CStr(_Subjects(s).DificultyRating) & Environment.NewLine
+        Next s
+
         Return Ans
     End Function
 End Class

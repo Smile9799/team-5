@@ -11,7 +11,7 @@ Option Explicit On
     Private Shared _Id As Integer
     Private _CountryId As String
 
-    Public Sub New(numSchools As Integer, countryName As String, numPeople As Integer, schoolName As String)
+    Public Sub New(numSchools As Integer, countryName As String, numPeople As Integer)
 
         ReDim _Schools(numSchools)
         _Id += 1
@@ -28,6 +28,13 @@ Option Explicit On
             _Schools(index) = value
         End Set
     End Property
+
+    Public ReadOnly Property Schools() As School()
+        Get
+            Return _Schools
+        End Get
+    End Property
+
     Public Property numSchools As Integer
         Get
             Return _NumSchools
@@ -66,8 +73,14 @@ Option Explicit On
         Return _CountryAverageLiteracyRate
     End Function
     Public Function Display() As String
-        Dim result As String
-        result = "Literacy rate: " & CStr(CalculateLiteracyRate()) & Environment.NewLine
+        Dim result As String = ""
+        result &= "Literacy rate: " & CStr(CalculateLiteracyRate()) & Environment.NewLine
+        result &= "Schools information..." & Environment.NewLine
+
+        For s As Integer = 1 To _Schools.Length - 1
+            result &= _Schools(s).Display()
+        Next s
+
         Return result
     End Function
 End Class

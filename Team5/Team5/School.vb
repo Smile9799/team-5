@@ -32,6 +32,11 @@ Option Explicit On
         End Set
     End Property
 
+    Public ReadOnly Property People() As Person()
+        Get
+            Return _People
+        End Get
+    End Property
     Public Property NumberOfStaffAndStudents As Integer
         Get
             Return _NumberOfStaffAndStudents
@@ -40,21 +45,15 @@ Option Explicit On
             _NumberOfStaffAndStudents = value
         End Set
     End Property
-    Public Property TotalPassRate As Double
+    Public ReadOnly Property TotalPassRate As Double
         Get
             Return _TotalPassRate
         End Get
-        Set(value As Double)
-            _TotalPassRate = value
-        End Set
     End Property
-    Public Property FailRate As Double
+    Public ReadOnly Property FailRate As Double
         Get
             Return _FailRate
         End Get
-        Set(value As Double)
-            _FailRate = value
-        End Set
     End Property
     Public ReadOnly Property FemalePassRate As Double
         Get
@@ -66,8 +65,41 @@ Option Explicit On
             Return _MalePassrate
         End Get
     End Property
+
+    Public Function CalcMalePassRate() As Double
+        Dim counterPass As Integer = 0
+        Dim counterStudents As Integer = 0
+        For s As Integer = 1 To _People.Length - 1
+            Dim student As Student = TryCast(_People(s), Student)
+            If Not student Is Nothing Then
+                counterStudents += 1
+                If student.HasPassed And student.Gender = "Male" Then
+                    counterPass += 1
+                End If
+            End If
+        Next
+        _MalePassrate = (counterPass / counterStudents) * 100
+        Return _MalePassrate
+    End Function
+
+    Public Function CalcFeMalePassRate() As Double
+        Dim counterPass As Integer = 0
+        Dim counterStudents As Integer = 0
+        For s As Integer = 1 To _People.Length - 1
+            Dim student As Student = TryCast(_People(s), Student)
+            If Not student Is Nothing Then
+                counterStudents += 1
+                If student.HasPassed And student.Gender = "Female" Then
+                    counterPass += 1
+                End If
+            End If
+        Next
+        _FemalePassrate = (counterPass / counterStudents) * 100
+        Return _FemalePassrate
+    End Function
+
     Public Function PassRate() As Double
-        _TotalPassRate = _FemalePassrate + _MalePassrate
+        _TotalPassRate = CalcFeMalePassRate() + CalcMalePassRate()
         Return _TotalPassRate
     End Function
     Public Function CalcFailRate() As Double
@@ -75,15 +107,32 @@ Option Explicit On
         Return _FailRate
     End Function
     Public Function CalcMaleDropOutRate() As Double
-        Dim MaledropOutrate As Double
-        MaledropOutrate = _FailRate / _MalePassrate
-        Return MaledropOutrate
-
+        Dim counterDropout As Integer = 0
+        Dim counterStudents As Integer = 0
+        For s As Integer = 1 To _People.Length - 1
+            Dim student As Student = TryCast(_People(s), Student)
+            If Not student Is Nothing Then
+                counterStudents += 1
+                If Not student.IsAttending And student.Gender = "Male" Then
+                    counterDropout += 1
+                End If
+            End If
+        Next
+        Return (counterDropout / counterStudents) * 100
     End Function
     Public Function CalcFemaleDropOutRate() As Double
-        Dim femaledropoutrate As Double
-        femaledropoutrate = _FailRate / _FemalePassrate
-        Return femaledropoutrate
+        Dim counterDropout As Integer = 0
+        Dim counterStudents As Integer = 0
+        For s As Integer = 1 To _People.Length - 1
+            Dim student As Student = TryCast(_People(s), Student)
+            If Not student Is Nothing Then
+                counterStudents += 1
+                If Not student.IsAttending And student.Gender = "Female" Then
+                    counterDropout += 1
+                End If
+            End If
+        Next
+        Return (counterDropout / counterStudents) * 100
     End Function
     Public Function Display() As String
         Dim tempStr As String = ""
@@ -93,7 +142,23 @@ Option Explicit On
         tempStr &= "Total Fail Rate: " & CStr(_FailRate) & Environment.NewLine
         tempStr &= "Male Pass Rate: " & CStr(_MalePassrate) & Environment.NewLine
         tempStr &= "Female Pass Rate: " & CStr(_FemalePassrate) & Environment.NewLine
+        tempStr &= "Female DropOut Rate: " & CStr(CalcFemaleDropOutRate())
+        tempStr &= "Male DropOut Rate: " & CStr(CalcMaleDropOutRate())
         tempStr &= "School personale: " & Environment.NewLine
+
+        For p As Integer = 1 To _People.Length - 1
+            Dim student As Student = TryCast(_People(p), Student)
+            Dim educator As Educator = TryCast(_People(p), Educator)
+
+            If Not student Is Nothing Then
+                tempStr &= student.Display()
+            End If
+
+            If Not educator Is Nothing Then
+                tempStr &= educator.Display()
+            End If
+
+        Next p
 
         Return tempStr
     End Function

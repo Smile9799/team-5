@@ -30,6 +30,14 @@ Public Class frmGov
         FS.Close()
         MessageBox.Show("Infomation has been saved :)")
     End Sub
+    Private Sub DisplayInfo(Countries() As Country)
+        For c As Integer = 1 To Countries.Length - 1
+            If Not Countries(c) Is Nothing Then
+                txtDisplay.Text &= Countries(c).Display()
+                txtDisplay.Text &= Environment.NewLine & Environment.NewLine
+            End If
+        Next c
+    End Sub
     Private Sub btnCaptureData_Click(sender As Object, e As EventArgs) Handles btnCaptureData.Click
         Dim numCountries As Integer = CInt(InputBox("Enter number of countries"))
         ReDim Countries(numCountries)
@@ -39,7 +47,7 @@ Public Class frmGov
             Dim numSchools As Integer = CInt(InputBox("Please enter number of schools"))
             Dim schoolName As String
             Dim numPeople As Integer
-            Countries(c) = New Country(numSchools, countryName, numPeople, schoolName)
+            Countries(c) = New Country(numSchools, countryName, numPeople)
 
             For s As Integer = 1 To numSchools
                 schoolName = InputBox("Please enter school name")
@@ -108,4 +116,27 @@ Public Class frmGov
         SaveToFile(Countries)
     End Sub
 
+    Private Sub btnDisplayInfo_Click(sender As Object, e As EventArgs) Handles btnDisplayInfo.Click
+        If File.Exists(FILE_NAME) Then
+            FS = New FileStream(FILE_NAME, FileMode.Open, FileAccess.Read)
+            BF = New BinaryFormatter()
+            Dim counter As Integer = 1
+            While FS.Position < FS.Length
+                counter += 1
+                ReDim Preserve Countries(counter)
+                Countries(counter) = DirectCast(BF.Deserialize(FS), Country)
+            End While
+        End If
+        FS.Close()
+        DisplayInfo(Countries)
+        MessageBox.Show("Done reading...")
+    End Sub
+
+    Private Sub btnCountryStats_Click(sender As Object, e As EventArgs) Handles btnCountryStats.Click
+
+    End Sub
+
+    Private Sub btnWorstAndBestCountries_Click(sender As Object, e As EventArgs) Handles btnWorstAndBestCountries.Click
+
+    End Sub
 End Class
