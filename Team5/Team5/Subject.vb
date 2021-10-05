@@ -7,15 +7,14 @@ Option Infer Off
     Private _DificultyRating As Integer
 
     'constructor
-<<<<<<< HEAD
-    Public Sub New(Name As String, d As Integer, gender As String, age As Integer, country As String, numSubjects As Integer)
-        MyBase.New(Name, gender, age, country, numSubjects)
+
+    Public Sub New(d As Integer)
         _DificultyRating = d
-=======
+    End Sub
     Public Sub New(Name As String, rating As Integer)
         _SubjectName = Name
         _DificultyRating = rating
->>>>>>> e45c5194b2114038600a240e7a3eb4886da3e1e3
+
     End Sub
 
     'property

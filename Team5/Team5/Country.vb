@@ -3,7 +3,7 @@ Option Infer Off
 Option Explicit On
 
 <Serializable()> Public Class Country
-    Inherits School
+
     Private _NumSchools As Integer
     Private _CountryName As String
     Private _Schools() As School 'change it to school array later
@@ -12,7 +12,7 @@ Option Explicit On
     Private _CountryId As String
 
     Public Sub New(numSchools As Integer, countryName As String, numPeople As Integer, schoolName As String)
-        MyBase.New(numPeople, schoolName)
+
         ReDim _Schools(numSchools)
         _Id += 1
         _CountryId = "CO_" + CStr(_Id)
@@ -55,7 +55,7 @@ Option Explicit On
         End Get
     End Property
 
-    Public Sub CalculateLiteracyRate()
+    Public Function CalculateLiteracyRate() As Double
         Dim totalPassRate As Double = 0.0
 
         For s As Integer = 1 To _Schools.Length - 1
@@ -63,10 +63,11 @@ Option Explicit On
         Next
 
         _CountryAverageLiteracyRate = (totalPassRate / numSchools) * 100
-    End Sub
-    'Public Overrides Function Display() As String
-    '    Dim result As String
-    '    result = "Literacy rate: " & CalculateLiteracyRate() & Environment.NewLine
-    '    Return result
-    'End Function
+        Return _CountryAverageLiteracyRate
+    End Function
+    Public Function Display() As String
+        Dim result As String
+        result = "Literacy rate: " & CStr(CalculateLiteracyRate()) & Environment.NewLine
+        Return result
+    End Function
 End Class

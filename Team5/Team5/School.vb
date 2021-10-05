@@ -61,38 +61,20 @@ Option Explicit On
         Return _TotalPassRate
     End Function
     Public Function CalcFailRate() As Double
-        Return 100 - _TotalPassRate
+        _FailRate = 100 - _TotalPassRate
+        Return _FailRate
     End Function
-    Public Function CalcMaleDropOutRate() As String
-        Dim MaleDropOut As String
+    Public Function CalcMaleDropOutRate() As Double
+        Dim MaledropOutrate As Double
+        MaledropOutrate = _FailRate / _MalePassrate
+        Return MaledropOutrate
 
-        If MalepassRate < 50 Then
-            MaleDropOut = "low"
-        Else
-            MaleDropOut = "high"
-        End If
-        Return MaleDropOut
     End Function
-    Public Function FemaleDropOutRate() As String
-        Dim FemaleDropOut As String
-
-        If FemalePassRate < 50 Then
-            FemaleDropOut = "low"
-        Else
-            FemaleDropOut = "high"
-        End If
-        Return FemaleDropOut
+    Public Function CalcFemaleDropOutRate() As Double
+        Dim femaledropoutrate As Double
+        femaledropoutrate = _FailRate / _FemalePassrate
+        Return femaledropoutrate
     End Function
-<<<<<<< HEAD
-    Public Overridable Function Display() As String
-        Dim result As String
-        result = "Pass rate: " & PassRate() & Environment.NewLine
-        result &= "Fail rate: " & CalcFailRate() & Environment.NewLine
-        result &= "Male drop out rate: " & CalcMaleDropOutRate() & Environment.NewLine
-        result &= "female drop out rate: " & FemaleDropOutRate() & Environment.NewLine
-        Return result
-=======
-
     Public Function Display() As String
         Dim tempStr As String = ""
         tempStr &= "School Name: " & _SchoolName & Environment.NewLine
@@ -104,6 +86,5 @@ Option Explicit On
         tempStr &= "School personale: " & Environment.NewLine
 
         Return tempStr
->>>>>>> e45c5194b2114038600a240e7a3eb4886da3e1e3
     End Function
 End Class
