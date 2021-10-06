@@ -177,6 +177,7 @@ Option Explicit On
         tempStr &= "Female Pass Rate: " & CStr(CalcFeMalePassRate()) & CStr("%") & Environment.NewLine
         tempStr &= "Female DropOut Rate: " & CStr(CalcFemaleDropOutRate()) & CStr("%") & Environment.NewLine
         tempStr &= "Male DropOut Rate: " & CStr(CalcMaleDropOutRate()) & CStr("%") & Environment.NewLine
+
         tempStr &= "==================================School personale: " & Environment.NewLine
 
         For p As Integer = 1 To _People.Length - 1

@@ -76,80 +76,105 @@ Public Class frmGov
 
     'captures country data
     Private Sub btnCaptureData_Click(sender As Object, e As EventArgs) Handles btnCaptureData.Click
-        Dim numCountries As Integer = CInt(InputBox("Enter number of countries"))
-        ReDim Countries(numCountries)
+        Try
+            Dim numCountries As Integer = CInt(InputBox("Enter number of countries"))
+            ReDim Countries(numCountries)
 
-        For c As Integer = 1 To Countries.Length - 1
-            Dim countryName As String = InputBox("Please enter country name")
-            Dim numSchools As Integer = CInt(InputBox("Please enter number of schools"))
-            Dim schoolName As String
-            Countries(c) = New Country(numSchools, countryName)
+            For c As Integer = 1 To Countries.Length - 1
+                Dim countryName As String = InputBox("Please enter country name")
+                Dim numSchools As Integer = CInt(InputBox("Please enter number of schools"))
+                Dim schoolName As String
+                Countries(c) = New Country(numSchools, countryName)
 
-            For s As Integer = 1 To numSchools
-                schoolName = InputBox("Please enter school name")
-                Dim schoolPersonale As Integer = CInt(InputBox("Please enter number of people in school this includes students and staff"))
+                For s As Integer = 1 To numSchools
+                    schoolName = InputBox("Please enter school name")
+                    Dim schoolPersonale As Integer = CInt(InputBox("Please enter number of people in school this includes students and staff"))
 
-                Countries(c).School(s) = New School(schoolPersonale, schoolName)
+                    Countries(c).School(s) = New School(schoolPersonale, schoolName)
 
-                For p As Integer = 1 To schoolPersonale
+                    For p As Integer = 1 To schoolPersonale
 
-                    Dim typePerson As Integer = CInt(InputBox("Select the person you wish to save" & Environment.NewLine & "1. Student" & Environment.NewLine & "2. Educator"))
+                        Dim typePerson As Integer = CInt(InputBox("Select the person you wish to save" & Environment.NewLine & "1. Student" & Environment.NewLine & "2. Educator"))
 
-                    Dim personName As String = InputBox("Please enter person name")
-                    Dim personAge As Integer = CInt(InputBox("Please enter person age"))
-                    Dim personGender As String = InputBox("Please enter person gender")
-                    Dim numSubject As Integer = CInt(InputBox("Enter number of subjects"))
-                    ' check if the user is the educator or student
+                        Dim personName As String = InputBox("Please enter person name")
+                        Dim personAge As Integer = CInt(InputBox("Please enter person age"))
+                        Dim genderType As Integer = CInt(InputBox("Please enter person gender" & Environment.NewLine & "1. Male" & Environment.NewLine & "2.Female"))
 
-                    If typePerson = 1 Then
+                        Dim personGender As String = ""
 
-                        Dim studentAttending As Integer = CInt(InputBox("Is the student still attending? " & Environment.NewLine & "1. Yes" & Environment.NewLine & "2.No"))
-                        Dim isAttending As Boolean = False
-                        If studentAttending = 1 Then
-                            isAttending = True
+                        If genderType = 1 Then
+                            personGender = "Male"
+                        ElseIf genderType = 2 Then
+                            personGender = "Female"
                         Else
-                            isAttending = False
+                            MessageBox.Show("Invalid input")
+                        End If
+                        Dim numSubject As Integer = CInt(InputBox("Enter number of subjects"))
+                        ' check if the user is the educator or student
+
+                        If typePerson = 1 Then
+
+                            Dim studentAttending As Integer = CInt(InputBox("Is the student still attending? " & Environment.NewLine & "1. Yes" & Environment.NewLine & "2.No"))
+                            Dim isAttending As Boolean = False
+                            If studentAttending = 1 Then
+                                isAttending = True
+                            ElseIf studentAttending = 2 Then
+                                isAttending = False
+                            Else
+                                MessageBox.Show("Invalid input")
+                            End If
+
+                            Dim studentPassed As Integer = CInt(InputBox("Has the student passed? " & Environment.NewLine & "1. Yes" & Environment.NewLine & "2.No"))
+                            Dim hasPassed As Boolean = False
+                            If studentPassed = 1 Then
+                                hasPassed = True
+                            ElseIf studentPassed = 2 Then
+                                hasPassed = False
+                            Else
+                                MessageBox.Show("Invalid input")
+                            End If
+
+                            Dim studentTransport As Integer = CInt(InputBox("Is the student in need of transport? " & Environment.NewLine & "1. Yes" & Environment.NewLine & "2.No"))
+                            Dim distanceFromSchool As Integer
+                            Dim needTransport As Boolean = False
+                            If studentTransport = 1 Then
+                                needTransport = True
+                                distanceFromSchool = CInt(InputBox("Please enter the distance from school"))
+                            ElseIf studentTransport = 2 Then
+                                needTransport = False
+                                distanceFromSchool = 0
+                            Else
+                                MessageBox.Show("Invalid input")
+                            End If
+
+                            Countries(c).School(s).Person(p) = New Student(personName, personAge, personGender, countryName, numSubject, isAttending, hasPassed, needTransport, distanceFromSchool)
+
+                        ElseIf typePerson = 2 Then
+                            Dim personCountry As String = InputBox("Please enter person country")
+                            Dim duration As Integer = CInt(InputBox("How many months will this person be working"))
+                            Dim workPerDay As Integer = CInt(InputBox("How many hours per day will this person work"))
+                            Countries(c).School(s).Person(p) = New Educator(personName, personAge, personGender, personCountry, duration, workPerDay, numSubject)
+
+                        Else
+                            MessageBox.Show("Invalid input")
                         End If
 
-                        Dim studentPassed As Integer = CInt(InputBox("Has the student passed? " & Environment.NewLine & "1. Yes" & Environment.NewLine & "2.No"))
-                        Dim hasPassed As Boolean = False
-                        If studentPassed = 1 Then
-                            hasPassed = True
-                        Else
-                            hasPassed = False
-                        End If
+                        For subj As Integer = 1 To numSubject
+                            Dim subjectName As String = InputBox("Please enter the subject name")
+                            Dim subjectRating As Integer = CInt(InputBox("Please enter the subject difficulty rating"))
+                            Countries(c).School(s).Person(p).Subject(subj) = New Subject(subjectName, subjectRating)
+                        Next subj
 
-                        Dim studentTransport As Integer = CInt(InputBox("Is the student in need of transport? " & Environment.NewLine & "1. Yes" & Environment.NewLine & "2.No"))
-                        Dim distanceFromSchool As Integer
-                        Dim needTransport As Boolean = False
-                        If studentTransport = 1 Then
-                            needTransport = True
-                            distanceFromSchool = CInt(InputBox("Please enter the distance from school"))
-                        Else
-                            needTransport = False
-                            distanceFromSchool = 0
-                        End If
+                    Next p
+                Next s
+            Next c
 
-                        Countries(c).School(s).Person(p) = New Student(personName, personAge, personGender, countryName, numSubject, isAttending, hasPassed, needTransport, distanceFromSchool)
-
-                    ElseIf typePerson = 2 Then
-                        Dim personCountry As String = InputBox("Please enter person country")
-                        Dim duration As Integer = CInt(InputBox("How many months will this person be working"))
-                        Dim workPerDay As Integer = CInt(InputBox("How many hours per day will this person work"))
-                        Countries(c).School(s).Person(p) = New Educator(personName, personAge, personGender, personCountry, duration, workPerDay, numSubject)
-                    End If
-
-                    For subj As Integer = 1 To numSubject
-                        Dim subjectName As String = InputBox("Please enter the subject name")
-                        Dim subjectRating As Integer = CInt(InputBox("Please enter the subject difficulty rating"))
-                        Countries(c).School(s).Person(p).Subject(subj) = New Subject(subjectName, subjectRating)
-                    Next subj
-
-                Next p
-            Next s
-        Next c
-
-        SaveToFile(Countries)
+            SaveToFile(Countries)
+        Catch inv As InvalidCastException
+            MessageBox.Show("Invalid input please enter numbers only")
+        Catch ex As Exception
+            MessageBox.Show("Something went wrong..." & ex.Message)
+        End Try
     End Sub
 
     'print countries data
@@ -227,7 +252,7 @@ Public Class frmGov
         Dim bestIndex As Integer = 1
 
         For c As Integer = 1 To savedCountries.Length - 1
-            If savedCountries(c).CalculateLiteracyRate() < bestLiteracyRate Then
+            If savedCountries(c).CalculateLiteracyRate() > bestLiteracyRate Then
                 bestLiteracyRate = savedCountries(c).CalculateLiteracyRate()
                 bestIndex = c
             End If
