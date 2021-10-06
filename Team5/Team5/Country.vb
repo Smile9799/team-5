@@ -22,7 +22,7 @@ Option Explicit On
     Private Shared _Id As Integer
     Private _CountryId As String
 
-    Public Sub New(numSchools As Integer, countryName As String, numPeople As Integer)
+    Public Sub New(numSchools As Integer, countryName As String)
 
         ReDim _Schools(numSchools)
         _Id += 1
