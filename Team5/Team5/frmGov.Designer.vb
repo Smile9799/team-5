@@ -31,7 +31,7 @@ Partial Class frmGov
         '
         'btnCaptureData
         '
-        Me.btnCaptureData.Location = New System.Drawing.Point(13, 38)
+        Me.btnCaptureData.Location = New System.Drawing.Point(13, 21)
         Me.btnCaptureData.Name = "btnCaptureData"
         Me.btnCaptureData.Size = New System.Drawing.Size(73, 43)
         Me.btnCaptureData.TabIndex = 0
@@ -40,7 +40,7 @@ Partial Class frmGov
         '
         'btnDisplayInfo
         '
-        Me.btnDisplayInfo.Location = New System.Drawing.Point(13, 110)
+        Me.btnDisplayInfo.Location = New System.Drawing.Point(13, 91)
         Me.btnDisplayInfo.Name = "btnDisplayInfo"
         Me.btnDisplayInfo.Size = New System.Drawing.Size(73, 38)
         Me.btnDisplayInfo.TabIndex = 2
@@ -49,7 +49,7 @@ Partial Class frmGov
         '
         'btnCountryStats
         '
-        Me.btnCountryStats.Location = New System.Drawing.Point(12, 175)
+        Me.btnCountryStats.Location = New System.Drawing.Point(13, 151)
         Me.btnCountryStats.Name = "btnCountryStats"
         Me.btnCountryStats.Size = New System.Drawing.Size(74, 43)
         Me.btnCountryStats.TabIndex = 3
@@ -58,7 +58,7 @@ Partial Class frmGov
         '
         'btnWorstAndBestCountries
         '
-        Me.btnWorstAndBestCountries.Location = New System.Drawing.Point(12, 240)
+        Me.btnWorstAndBestCountries.Location = New System.Drawing.Point(14, 219)
         Me.btnWorstAndBestCountries.Name = "btnWorstAndBestCountries"
         Me.btnWorstAndBestCountries.Size = New System.Drawing.Size(73, 51)
         Me.btnWorstAndBestCountries.TabIndex = 4
@@ -67,7 +67,7 @@ Partial Class frmGov
         '
         'txtDisplay
         '
-        Me.txtDisplay.Location = New System.Drawing.Point(274, 12)
+        Me.txtDisplay.Location = New System.Drawing.Point(169, 21)
         Me.txtDisplay.Name = "txtDisplay"
         Me.txtDisplay.ReadOnly = True
         Me.txtDisplay.Size = New System.Drawing.Size(514, 426)
@@ -78,7 +78,7 @@ Partial Class frmGov
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(705, 450)
         Me.Controls.Add(Me.txtDisplay)
         Me.Controls.Add(Me.btnWorstAndBestCountries)
         Me.Controls.Add(Me.btnCountryStats)
