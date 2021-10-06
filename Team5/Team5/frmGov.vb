@@ -185,10 +185,7 @@ Public Class frmGov
     'calculates the worst and best country
     Private Sub btnWorstAndBestCountries_Click(sender As Object, e As EventArgs) Handles btnWorstAndBestCountries.Click
         Dim SavedCountries() As Country
-
-        If countries Is Nothing Then
-        Else
-            Dim numCountries As Integer = 0
+        Dim numCountries As Integer = 0
             Dim countries() As Country = ReadFromFile()
             For c As Integer = 1 To countries.Length - 1
                 Dim country As Country = TryCast(countries(c), Country)
@@ -204,8 +201,7 @@ Public Class frmGov
             txtDisplay.Text &= "Best Country : " & Environment.NewLine
             txtDisplay.Text &= BestCountry(SavedCountries).DisplayCountryInfo()
             txtDisplay.Text &= "Worst Country : " & Environment.NewLine
-            txtDisplay.Text &= WorstCountry(SavedCountries).DisplayCountryInfo()
-        End If
+        txtDisplay.Text &= WorstCountry(SavedCountries).DisplayCountryInfo()
     End Sub
 
     Private Sub frmGov_Load(sender As Object, e As EventArgs) Handles MyBase.Load
